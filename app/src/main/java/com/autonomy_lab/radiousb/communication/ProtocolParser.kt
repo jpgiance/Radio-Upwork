@@ -15,7 +15,7 @@ class ProtocolParser (){
     companion object {
         private const val START_BYTE = 66 // Byte 1
         private const val END_BYTE = 10   // Byte 12
-        private const val MESSAGE_LENGTH = 12
+        private const val MESSAGE_LENGTH = 13
     }
 
 
@@ -30,11 +30,13 @@ class ProtocolParser (){
 
 
 //        val decimals = ("Bytes (Decimal): ${bytes.joinToString(" ") { it.toString() }}")
+//        val asciiChars = bytes.filter { it in 32..126 }.map { it.toChar() }
 //        val hex = ("Bytes (Hex): ${bytes.joinToString(" ") { "0x${it.toUByte().toString(16).padStart(2, '0')}" }}")
 //        val binaries = ("Bytes (Binary): ${bytes.joinToString(" ") { it.toUByte().toString(2).padStart(8, '0') }}")
 //
 //        Log.e("TAG", "parseBytes: Starting Parser -----------" )
 //        Log.e("TAG", decimals )
+//        Log.e("TAG", asciiChars.toString())
 //        Log.e("TAG", hex )
 //        Log.e("TAG", binaries )
 

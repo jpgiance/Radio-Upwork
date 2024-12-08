@@ -178,25 +178,31 @@ class MainViewModel @Inject constructor(
     fun startStop(){
 
         if (usbController.connected.value){
-            updateJob?.let {
-                if (it.isActive) {
-                    stopTest()
-                    usbController.disconnect()
-                }
-            }?: run{
-                startTest()
-            }
+            usbController.disconnect()
         }else{
-            updateJob?.let {
-                if (it.isActive) {
-                    usbController.connect()
-                    startTest()
-                }
-            }?: run{
-                usbController.connect()
-                startTest()
-            }
+            usbController.connect()
         }
+
+//        if (usbController.connected.value){
+//            updateJob?.let {
+//                if (it.isActive) {
+//                    stopTest()
+//                    usbController.disconnect()
+//                }
+//            }?: run{
+//                startTest()
+//            }
+//        }else{
+//            updateJob?.let {
+//                if (it.isActive) {
+//                    usbController.connect()
+//                    startTest()
+//                }
+//            }?: run{
+//                usbController.connect()
+//                startTest()
+//            }
+//        }
 
     }
 

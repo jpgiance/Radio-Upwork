@@ -41,7 +41,7 @@ class MainViewModel @Inject constructor(
 
 
     init {
-        _bufferData.value = List(20){index ->  BarInfo(bandName = "Name $index", bandFrequency = 100f*index)}
+        _bufferData.value = List(20){index ->  BarInfo(bandName = "Name $index", bandFrequency = 0f)}
 
         viewModelScope.launch {
 
@@ -59,9 +59,9 @@ class MainViewModel @Inject constructor(
             parser.serialMessages.collect(){ message ->
 
 
-                if (message.switchPosition < 0 || message.switchPosition >= _bufferData.value.size) return@collect
+                if (message.switchPosition < 1 || message.switchPosition > _bufferData.value.size) return@collect
 
-                val position = message.switchPosition
+                val position = message.switchPosition-1
 
                 _bufferData.update { list->
 
@@ -79,7 +79,9 @@ class MainViewModel @Inject constructor(
                         mutableList[position] = infoBar.copy(
                             valueList = (infoBar.valueList + newPair).toMutableList(),
                             alarmState = newAlarmState,
-                            maxValue = newMaxValue,)
+                            maxValue = newMaxValue,
+                            bandFrequency = message.band.toFloat()
+                        )
 
                     }
                 }
@@ -218,11 +220,31 @@ class MainViewModel @Inject constructor(
     }
 
     fun normalizeValuesOnOff(){
-        _normalizeValuesOn.value = !_normalizeValuesOn.value
+//        _normalizeValuesOn.value = !_normalizeValuesOn.value
+
+        if (_normalizeValuesOn.value){
+            _normalizeValuesOn.value = false
+        }else{
+            _normalizeValuesOn.value = true
+
+            if (_maxHoldOn.value){
+                _maxHoldOn.value = false
+            }
+        }
     }
 
     fun maxHoldOnOff(){
-        _maxHoldOn.value = !_maxHoldOn.value
+//        _maxHoldOn.value = !_maxHoldOn.value
+
+        if (_maxHoldOn.value){
+            _maxHoldOn.value = false
+        }else{
+            _maxHoldOn.value = true
+
+            if (_normalizeValuesOn.value){
+                _normalizeValuesOn.value = false
+            }
+        }
     }
 
     fun showHide(position: Int){

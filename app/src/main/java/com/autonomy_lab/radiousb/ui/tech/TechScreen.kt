@@ -283,7 +283,7 @@ fun ItemTechContent(modifier: Modifier = Modifier, item: BarInfo, onAlarmOnOff: 
             contentAlignment = Alignment.Center
         ){
             Text(
-                text = item.bandName,
+                text = "${item.bandFrequency}",
                 textAlign = TextAlign.Center,
                 color = app_dark_text,
                 fontSize = 12.sp,

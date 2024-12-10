@@ -211,7 +211,7 @@ fun ItemMainContent(modifier: Modifier = Modifier, item: BarInfo, normalizeValue
                 contentAlignment = Alignment.Center
             ){
                 Text(
-                    text = "${item.bandFrequency}",
+                    text = "${item.bandFrequency.toInt()}",
                     color = barValueColor,
                     modifier = Modifier
                         .padding(horizontal = 5.dp)
